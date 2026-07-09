@@ -44,7 +44,8 @@ def detect_category(prompt: str) -> str:
     # NER — structured extraction
     if any(kw in p for kw in ["named entit", "extract entit", " ner ",
                                "identify the entit", "extract the names",
-                               "person, org", "entities in"]):
+                               "person, org", "entities in", "entities", "entity", "entit",
+                               "locations and", "organizations and"]):
         return "ner"
 
     # Summarisation — typically 1-3 sentences

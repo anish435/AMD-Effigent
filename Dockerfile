@@ -44,6 +44,7 @@ RUN for i in 1 2 3 4 5 6 7 8 9 10; do \
         -o /tmp/ollama.tar.zst && break || sleep 5; \
     done && \
     tar -C /usr -xf /tmp/ollama.tar.zst && \
+    rm -rf /usr/lib/ollama/cuda_v12 /usr/lib/ollama/cuda_v13 /usr/lib/ollama/vulkan && \
     rm /tmp/ollama.tar.zst
 
 # Pre-pull the local model (Qwen 1.5B) in the builder stage
@@ -68,7 +69,7 @@ COPY --from=builder /install /usr/local
 # Copy Ollama binary, libraries, and pre-pulled models
 COPY --from=builder /usr/bin/ollama /usr/local/bin/ollama
 COPY --from=builder /usr/lib/ollama /usr/local/lib/ollama
-COPY --from=builder /usr/share/ollama /usr/share/ollama
+COPY --chown=agent:agent --from=builder /usr/share/ollama /usr/share/ollama
 
 # Copy application code (no .env — harness injects env vars)
 COPY agent/ ./agent/
@@ -83,7 +84,7 @@ RUN mkdir -p /input /output
 
 # Create a non-root user for security and assign directory ownership
 RUN useradd --create-home --shell /bin/bash agent && \
-    chown -R agent:agent /output /usr/share/ollama
+    chown -R agent:agent /output
 USER agent
 
 # Default environment variables (can be overridden at runtime)

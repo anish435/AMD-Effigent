@@ -235,8 +235,13 @@ class HeuristicRouter:
             difficulty = self._score_to_difficulty(score)
             reasoning = f"Ollama unreachable. Falling back to 100% remote routing. Heuristic score: {score:.3f}"
         else:
+            # Check for categories that struggle under local 1.5B model
+            if category in ["math", "logic", "ner"]:
+                route_decision = Route.REMOTE
+                difficulty = TaskDifficulty.SIMPLE
+                reasoning = f"Forcing category '{category}' to remote simple model to ensure direct answers. Heuristic score: {score:.3f}"
             # Heuristic bucketing
-            if score < 0.35:
+            elif score < 0.35:
                 route_decision = Route.LOCAL
                 difficulty = TaskDifficulty.SIMPLE
                 reasoning = f"Heuristic score {score:.3f} is obviously easy (SIMPLE)."

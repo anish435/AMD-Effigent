@@ -45,11 +45,11 @@ logger = logging.getLogger(__name__)
 
 _CATEGORY_PROMPTS: dict[str, str] = {
     "sentiment": "Classify the sentiment (positive/negative/neutral). State the label first, then briefly justify.",
-    "ner": "Extract the requested named entities. For each, state the text and its type.",
+    "ner": "Extract the requested named entities. Output ONLY the extracted entity text separated by spaces, in the order they appear, without types, without labels, and without any other text.",
     "summarization": "Summarize the text concisely. Follow any length or format constraints given.",
     "code": "Answer the coding task directly. For debugging, show the fix. For code generation, write correct code.",
-    "math": "Solve step-by-step. State the final numerical answer clearly.",
-    "logic": "Reason through the constraints step-by-step. State the conclusion clearly.",
+    "math": "Solve the math problem. Output ONLY the final numerical answer, no explanation, no steps, and no work shown.",
+    "logic": "Reason through the constraints. Output ONLY the final direct answer, no explanation, and no reasoning steps shown.",
     "explanation": "Answer in 1-2 sentences max, only the core fact, no elaboration unless explicitly asked to explain.",
     "general": "Answer in 1-2 sentences max, only the core fact, no elaboration unless explicitly asked to explain.",
 }
