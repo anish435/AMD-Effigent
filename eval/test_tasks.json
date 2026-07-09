@@ -1,0 +1,207 @@
+[
+  {
+    "task_id": "fact-1",
+    "prompt": "What is photosynthesis and how does it work in plants?",
+    "expected_answer": "photosynthesis plants convert light energy glucose oxygen"
+  },
+  {
+    "task_id": "fact-2",
+    "prompt": "Explain the concept of supply and demand in economics.",
+    "expected_answer": "supply demand price good determined"
+  },
+  {
+    "task_id": "fact-3",
+    "prompt": "What causes earthquakes?",
+    "expected_answer": "earthquakes release stress fault tectonic plate"
+  },
+  {
+    "task_id": "fact-4",
+    "prompt": "Who was the first person to step on the Moon, and in what year did this occur?",
+    "expected_answer": "Neil Armstrong 1969"
+  },
+  {
+    "task_id": "fact-5",
+    "prompt": "Which country is the largest by land area, and what is its capital city?",
+    "expected_answer": "Russia Moscow"
+  },
+  {
+    "task_id": "math-1",
+    "prompt": "A store sells a jacket for $120 after a 25% discount. What was the original price?",
+    "expected_answer": "160"
+  },
+  {
+    "task_id": "math-2",
+    "prompt": "If a train travels at 80 km/h for 2.5 hours, then at 60 km/h for 1.5 hours, what is the total distance traveled?",
+    "expected_answer": "290"
+  },
+  {
+    "task_id": "math-3",
+    "prompt": "Calculate the compound interest on $5000 at an annual interest rate of 8% compounded annually for 3 years.",
+    "expected_answer": "1298"
+  },
+  {
+    "task_id": "math-4",
+    "prompt": "What is 847 * 23?",
+    "expected_answer": "19481"
+  },
+  {
+    "task_id": "math-5",
+    "prompt": "Solve the equation for x: 3x + 7 = 22.",
+    "expected_answer": "5"
+  },
+  {
+    "task_id": "math-6",
+    "prompt": "What is 15 * 24?",
+    "expected_answer": "360"
+  },
+  {
+    "task_id": "sent-1",
+    "prompt": "Classify the sentiment of the following text as positive, negative, or neutral and briefly justify your answer: 'The new restaurant downtown has amazing food but the service was incredibly slow and the waiters were rude.'",
+    "expected_answer": "negative"
+  },
+  {
+    "task_id": "sent-2",
+    "prompt": "Determine the sentiment of this product review: 'Absolutely love this phone! The camera quality is outstanding and the battery lasts all day. Best purchase I have made this year.'",
+    "expected_answer": "positive"
+  },
+  {
+    "task_id": "sent-3",
+    "prompt": "Classify the sentiment of: 'The weather today is cloudy with occasional showers, making it quite average.'",
+    "expected_answer": "neutral"
+  },
+  {
+    "task_id": "sent-4",
+    "prompt": "Identify the sentiment of: 'I was extremely disappointed with the delivery time. It took three weeks to arrive and the box was completely crushed.'",
+    "expected_answer": "negative"
+  },
+  {
+    "task_id": "sent-5",
+    "prompt": "What is the sentiment of: 'This software has some nice features, but it crashes constantly and has a lot of bugs.'",
+    "expected_answer": "negative"
+  },
+  {
+    "task_id": "summ-1",
+    "prompt": "Summarise the following text in one sentence: 'Machine learning is a subset of artificial intelligence that enables systems to learn and improve from experience without being explicitly programmed. It focuses on developing computer programs that can access data and use it to learn for themselves. The process begins with observations or data, such as examples, direct experience, or instruction, to look for patterns in data and make better decisions in the future.'",
+    "expected_answer": "machine learning"
+  },
+  {
+    "task_id": "summ-2",
+    "prompt": "Summarize the following passage in 2-3 sentences: 'The Great Barrier Reef, located off the coast of Queensland, Australia, is the world’s largest coral reef system. It stretches over 2,300 kilometers and is composed of over 2,900 individual reef systems. The reef supports an extraordinary diversity of life, including over 1,500 species of fish, 400 types of coral, and numerous other marine organisms. However, it faces significant threats from climate change, ocean acidification, and pollution, which have caused widespread coral bleaching events in recent years.'",
+    "expected_answer": "Great Barrier Reef"
+  },
+  {
+    "task_id": "summ-3",
+    "prompt": "Summarize the following text in a short paragraph: 'Quantum computing is a rapidly-emerging technology that harnesses the laws of quantum mechanics to solve problems too complex for classical computers. Classical computers use bits (0s and 1s) as their basic unit of information, whereas quantum computers use qubits. Qubits can exist in a state of superposition, meaning they can represent a 0, a 1, or both simultaneously. This allows quantum computers to process massive amounts of information at speed.'",
+    "expected_answer": "quantum computing qubits superposition"
+  },
+  {
+    "task_id": "summ-4",
+    "prompt": "Condense this text into one bullet point: 'The company announced a record-breaking quarter, with revenue up 45% year-over-year. Key growth drivers included the expansion of cloud services and robust international sales, despite ongoing supply chain constraints.'",
+    "expected_answer": "revenue"
+  },
+  {
+    "task_id": "summ-5",
+    "prompt": "Provide a brief summary of: 'Renewable energy sources, such as solar, wind, and hydroelectric power, are becoming increasingly vital as global carbon emissions continue to rise. Transitioning away from fossil fuels is necessary to mitigate the impacts of climate change and secure a clean, sustainable energy future for subsequent generations.'",
+    "expected_answer": "renewable energy solar wind"
+  },
+  {
+    "task_id": "ner-1",
+    "prompt": "Extract all named entities from the following text and label each as Person, Organization, Location, or Date: 'On March 15, 2024, Elon Musk announced that SpaceX would be launching a new satellite from Cape Canaveral in partnership with NASA.'",
+    "expected_answer": "Cape Canaveral SpaceX Elon Musk NASA March"
+  },
+  {
+    "task_id": "ner-2",
+    "prompt": "Identify all named entities (people, organizations, locations, dates) in this text: 'Microsoft CEO Satya Nadella met with European Union officials in Brussels on January 10th to discuss artificial intelligence regulations.'",
+    "expected_answer": "Microsoft Satya Nadella Brussels January"
+  },
+  {
+    "task_id": "ner-3",
+    "prompt": "Extract all entities (Locations, Organizations, Dates) from: 'Google was founded in September 1998 by Larry Page and Sergey Brin while they were Ph.D. students at Stanford University in California.'",
+    "expected_answer": "Google Larry Page Sergey Brin"
+  },
+  {
+    "task_id": "ner-4",
+    "prompt": "List all the locations and persons in the text: 'Albert Einstein visited Princeton, New Jersey in 1933 to join the Institute for Advanced Study.'",
+    "expected_answer": "Albert Einstein Princeton"
+  },
+  {
+    "task_id": "ner-5",
+    "prompt": "Identify the organizations and dates mentioned here: 'The United Nations was established on October 24, 1945, following the end of World War II, to prevent future global conflicts.'",
+    "expected_answer": "United Nations October 1945"
+  },
+  {
+    "task_id": "debug-1",
+    "prompt": "Find and fix the bug in this Python code:\n\ndef find_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    return total / len(numbers)\n\nresult = find_average([])\nprint(result)",
+    "expected_answer": "ZeroDivisionError len empty"
+  },
+  {
+    "task_id": "debug-2",
+    "prompt": "What is wrong with this code and how would you fix it?\n\ndef binary_search(arr, target):\n    low = 0\n    high = len(arr)\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1",
+    "expected_answer": "low <= high low < high high len"
+  },
+  {
+    "task_id": "debug-3",
+    "prompt": "Fix the bug in this function which is supposed to reverse a string:\n\ndef reverse_string(s):\n    rev = ''\n    for i in range(len(s)):\n        rev += s[len(s) - i]\n    return rev",
+    "expected_answer": "len - 1 - i index range"
+  },
+  {
+    "task_id": "debug-4",
+    "prompt": "Find the error in this recursive factorial function:\n\ndef factorial(n):\n    if n == 1:\n        return 1\n    return n * factorial(n - 1)",
+    "expected_answer": "recursion base case n <= 1"
+  },
+  {
+    "task_id": "debug-5",
+    "prompt": "This code is supposed to check if a number is prime, but it has a logic bug. Find it:\n\ndef is_prime(n):\n    if n <= 1:\n        return False\n    for i in range(2, n):\n        if n % i == 0:\n            return False\n        else:\n            return True",
+    "expected_answer": "is_prime divisor returns early"
+  },
+  {
+    "task_id": "logic-1",
+    "prompt": "Three friends - Alice, Bob, and Charlie - each have a different pet: a cat, a dog, and a fish. Alice does not have the dog. Charlie does not have the cat or the dog. Who has which pet?",
+    "expected_answer": "Charlie pet is fish Alice pet is cat Bob pet is dog"
+  },
+  {
+    "task_id": "logic-2",
+    "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly? Explain your reasoning using deductive logic.",
+    "expected_answer": "cannot conclude"
+  },
+  {
+    "task_id": "logic-3",
+    "prompt": "A is taller than B. B is taller than C. D is taller than A. Who is the shortest person?",
+    "expected_answer": "C"
+  },
+  {
+    "task_id": "logic-4",
+    "prompt": "If all widgets are gadgets, and all gadgets are gizmos, are all widgets gizmos? Provide the logical proof.",
+    "expected_answer": "widgets are gizmos"
+  },
+  {
+    "task_id": "logic-5",
+    "prompt": "A room contains 5 people. If every person shakes hands with every other person exactly once, how many handshakes take place in total?",
+    "expected_answer": "10"
+  },
+  {
+    "task_id": "code-1",
+    "prompt": "Write a Python function called 'is_palindrome' that takes a string as input and returns True if the string is a palindrome (reads the same forwards and backwards), ignoring case and non-alphanumeric characters.",
+    "expected_answer": "palindrome"
+  },
+  {
+    "task_id": "code-2",
+    "prompt": "Write a Python function called 'flatten_list' that takes a nested list of arbitrary depth and returns a flat list containing all elements. For example, flatten_list([1, [2, [3, 4], 5], 6]) should return [1, 2, 3, 4, 5, 6].",
+    "expected_answer": "flatten"
+  },
+  {
+    "task_id": "code-3",
+    "prompt": "Implement a Python function called 'most_frequent' that takes a list of elements and returns the element that appears most frequently. If there is a tie, return any of the most frequent elements.",
+    "expected_answer": "most_frequent"
+  },
+  {
+    "task_id": "code-4",
+    "prompt": "Write a Python class named 'BankAccount' with methods 'deposit', 'withdraw', and 'get_balance'. Ensure that withdrawals cannot exceed the current balance.",
+    "expected_answer": "BankAccount"
+  },
+  {
+    "task_id": "code-5",
+    "prompt": "Write a Python function 'fizzbuzz' that prints numbers from 1 to n, but prints 'Fizz' for multiples of 3, 'Buzz' for multiples of 5, and 'FizzBuzz' for multiples of both.",
+    "expected_answer": "FizzBuzz"
+  }
+]

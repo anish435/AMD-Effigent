@@ -1,0 +1,11 @@
+{
+  "code": 400,
+  "sentiment": 80,
+  "ner": 150,
+  "summarization": 100,
+  "math": 200,
+  "simple_math": 30,
+  "logic": 200,
+  "explanation": 200,
+  "default": 150
+}
