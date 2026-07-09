@@ -91,20 +91,57 @@ _MULTI_PART_PATTERN = re.compile(
 _OLLAMA_ALIVE: Optional[bool] = None
 
 def _is_ollama_available() -> bool:
-    """Checks once if local Ollama service is reachable and caches the result."""
+    """Checks if local Ollama service is reachable, launches it if not running, and caches result."""
     global _OLLAMA_ALIVE
     if _OLLAMA_ALIVE is not None:
         return _OLLAMA_ALIVE
-        
+
+    import subprocess
+    import time
+
     ollama_host = os.getenv("OLLAMA_HOST", "http://localhost:11434").rstrip("/")
     url = f"{ollama_host}/api/tags"
+
+    # 1. Quick initial ping
     try:
-        # Quick ping with short timeout
-        res = requests.get(url, timeout=2)
-        _OLLAMA_ALIVE = (res.status_code == 200)
+        res = requests.get(url, timeout=1)
+        if res.status_code == 200:
+            _OLLAMA_ALIVE = True
+            return _OLLAMA_ALIVE
     except Exception:
-        _OLLAMA_ALIVE = False
-        
+        pass
+
+    # 2. Spawn serve in the background if it's not running
+    logger = logging.getLogger(__name__)
+    logger.info("Local Ollama service not running. Launching in-container 'ollama serve'...")
+
+    start_time = time.monotonic()
+    try:
+        subprocess.Popen(
+            ["ollama", "serve"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            close_fds=True
+        )
+
+        # Wait up to 30s for the port to become healthy
+        for i in range(30):
+            try:
+                res = requests.get(url, timeout=1)
+                if res.status_code == 200:
+                    elapsed = time.monotonic() - start_time
+                    logger.info("Ollama server started successfully and is ready in %.1fs.", elapsed)
+                    _OLLAMA_ALIVE = True
+                    return _OLLAMA_ALIVE
+            except Exception:
+                time.sleep(1)
+
+        elapsed = time.monotonic() - start_time
+        logger.warning("Ollama serve launched but failed to become healthy within %.1fs.", elapsed)
+    except Exception as e:
+        logger.error("Failed to launch in-container Ollama binary: %s", e)
+
+    _OLLAMA_ALIVE = False
     return _OLLAMA_ALIVE
 
 
@@ -112,7 +149,7 @@ def _ollama_classify(prompt: str) -> Optional[str]:
     """Calls Ollama to classify the prompt difficulty into easy, medium, or hard."""
     ollama_host = os.getenv("OLLAMA_HOST", "http://localhost:11434").rstrip("/")
     url = f"{ollama_host}/api/generate"
-    model = os.getenv("OLLAMA_MODEL", "llama3.2:latest")
+    model = os.getenv("OLLAMA_MODEL", "qwen2.5:1.5b")
     
     system_instruction = (
         "You are a task difficulty classifier. Classify the user prompt as either 'easy', 'medium', or 'hard'.\n"

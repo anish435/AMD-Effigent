@@ -45,12 +45,48 @@ def setup_logging() -> None:
     )
 
 
+def log_peak_memory(logger) -> None:
+    """Read and log peak container memory usage from cgroups or local maxrss (Linux)."""
+    for path in ["/sys/fs/cgroup/memory.peak", "/sys/fs/cgroup/memory.max_usage_in_bytes"]:
+        try:
+            p = Path(path)
+            if p.exists():
+                bytes_used = int(p.read_text().strip())
+                mb_used = bytes_used / (1024 * 1024)
+                logger.info("Peak Container Memory Usage (cgroup): %.1f MB", mb_used)
+                return
+        except Exception:
+            pass
+
+    try:
+        import resource
+        usage = resource.getrusage(resource.RUSAGE_SELF)
+        mb_used = usage.ru_maxrss / 1024.0
+        logger.info("Peak Agent Process Memory Usage (maxrss): %.1f MB", mb_used)
+    except Exception:
+        pass
+
+
 def main() -> int:
     """Main container entrypoint. Returns exit code."""
     setup_logging()
     logger = logging.getLogger("run")
 
     start_time = time.monotonic()
+
+    # ── Step 0: Proactively start and verify local Ollama server ──
+    try:
+        from agent.router import _is_ollama_available
+        logger.info("Initializing in-container Ollama check/startup...")
+        ollama_start_start = time.monotonic()
+        ollama_active = _is_ollama_available()
+        ollama_startup_duration = time.monotonic() - ollama_start_start
+        logger.info(
+            "Local Ollama initialized. Active: %s (Time taken: %.1fs)",
+            ollama_active, ollama_startup_duration
+        )
+    except Exception as exc:
+        logger.warning("Could not auto-start local Ollama: %s", exc)
 
     # ── Step 1: Load configuration ──
     try:
@@ -122,21 +158,27 @@ def main() -> int:
             )
             break
 
+        task_start = time.monotonic()
         try:
             decision = router.route(task)
             result = executor.execute(task, decision)
             answer = result.output
 
+            task_duration = time.monotonic() - task_start
             logger.info(
-                "Task %s: route=%s tokens=%d latency=%.0fms category=%s",
+                "Task %s: route=%s tokens=%d latency=%.0fms (total duration=%.1fs) category=%s",
                 task.id,
                 result.route_used.value,
                 result.token_usage.total_tokens,
                 result.latency_ms,
+                task_duration,
                 decision.difficulty.value,
             )
+            if task_duration > 30.0:
+                logger.warning("Task %s exceeded 30s limit (duration=%.1fs)!", task.id, task_duration)
         except Exception as exc:
-            logger.error("Task %s failed: %s", task.id, exc)
+            task_duration = time.monotonic() - task_start
+            logger.error("Task %s failed in %.1fs: %s", task.id, task_duration, exc)
             answer = ""  # Empty answer is better than crashing
 
         results.append({
@@ -167,6 +209,9 @@ def main() -> int:
         tracker.report()
     except Exception as exc:
         logger.error("Failed to print token report: %s", exc)
+
+    # Log peak memory usage stats
+    log_peak_memory(logger)
 
     return 0
 

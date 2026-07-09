@@ -177,7 +177,7 @@ class LocalExecutor:
 
     def __init__(self, config: AppConfig) -> None:
         self._config = config.local_model
-        self._model_name = os.getenv("OLLAMA_MODEL", "llama3.2:latest")
+        self._model_name = os.getenv("OLLAMA_MODEL", "qwen2.5:1.5b")
 
     def execute(
         self,
