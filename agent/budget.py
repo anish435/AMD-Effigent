@@ -53,23 +53,27 @@ def detect_category(prompt: str) -> str:
                                "in one sentence", "in a few words", "tldr"]):
         return "summarization"
 
+    # Logic — step-by-step reasoning (checked before math to catch "how many" word logic)
+    if any(kw in p for kw in ["logic", "deduc", "if all", "must be true",
+                               "can we conclude", "constraint",
+                               "puzzle", "who has", "given that",
+                               "shortest person", "taller than",
+                               "shakes hands", "handshake", "handshakes",
+                               "widgets", "gadgets", "gizmos"]):
+        return "logic"
+
     # Math — step-by-step + answer
     if any(kw in p for kw in ["calculate", "compute", "what is the value",
                                "original price", "compound interest",
                                "how much", "how many", "percentage", "profit",
                                "total distance", "total cost", "interest rate",
-                               "probability of", "discount"]):
+                               "probability of", "discount", "solve the equation",
+                               "solve for", "equation"]):
         return "math"
 
     # Simple arithmetic (just a number)
     if re.search(r"\d+\s*[\+\-\*\/\^]\s*\d+", p):
         return "simple_math"
-
-    # Logic — step-by-step reasoning
-    if any(kw in p for kw in ["logic", "deduc", "if all", "must be true",
-                               "can we conclude", "constraint",
-                               "puzzle", "who has", "given that"]):
-        return "logic"
 
     # Explanation
     if any(kw in p for kw in ["explain", "describe", "how does", "what is",
