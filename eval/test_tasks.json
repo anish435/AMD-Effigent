@@ -21,163 +21,423 @@
   },
   {
     "task_id": "fact-5",
-    "prompt": "Which country is the largest by land area, and what is its capital city?",
-    "expected_answer": "Russia Moscow"
+    "prompt": "What is the capital of France?",
+    "expected_answer": "Paris"
+  },
+  {
+    "task_id": "fact-6",
+    "prompt": "What is the chemical symbol for gold?",
+    "expected_answer": "Au"
+  },
+  {
+    "task_id": "fact-7",
+    "prompt": "Which planet is known as the Red Planet?",
+    "expected_answer": "Mars"
+  },
+  {
+    "task_id": "fact-8",
+    "prompt": "Who wrote the play 'Hamlet'?",
+    "expected_answer": "Shakespeare"
+  },
+  {
+    "task_id": "fact-9",
+    "prompt": "What is the largest ocean on Earth?",
+    "expected_answer": "Pacific"
+  },
+  {
+    "task_id": "fact-10",
+    "prompt": "Which gas do humans breathe out as a waste product of respiration?",
+    "expected_answer": "carbon dioxide"
+  },
+  {
+    "task_id": "fact-11",
+    "prompt": "What is the tallest mountain in the world?",
+    "expected_answer": "Everest"
+  },
+  {
+    "task_id": "fact-12",
+    "prompt": "In which continent is the Sahara Desert located?",
+    "expected_answer": "Africa"
+  },
+  {
+    "task_id": "fact-13",
+    "prompt": "Who painted the Mona Lisa?",
+    "expected_answer": "Leonardo da Vinci"
   },
   {
     "task_id": "math-1",
-    "prompt": "A store sells a jacket for $120 after a 25% discount. What was the original price?",
-    "expected_answer": "160"
+    "prompt": "Calculate: 124 * 3 + 45 - 12",
+    "expected_answer": "405"
   },
   {
     "task_id": "math-2",
-    "prompt": "If a train travels at 80 km/h for 2.5 hours, then at 60 km/h for 1.5 hours, what is the total distance traveled?",
-    "expected_answer": "290"
+    "prompt": "What is the sum of the first 10 prime numbers?",
+    "expected_answer": "129"
   },
   {
     "task_id": "math-3",
-    "prompt": "Calculate the compound interest on $5000 at an annual interest rate of 8% compounded annually for 3 years.",
-    "expected_answer": "1298"
+    "prompt": "If an investment of $1000 grows at an annual interest rate of 5% compounded annually, what will be the value after 5 years? Round to the nearest integer.",
+    "expected_answer": "1276"
   },
   {
     "task_id": "math-4",
-    "prompt": "What is 847 * 23?",
-    "expected_answer": "19481"
+    "prompt": "Add: 99 + 45",
+    "expected_answer": "144"
   },
   {
     "task_id": "math-5",
-    "prompt": "Solve the equation for x: 3x + 7 = 22.",
-    "expected_answer": "5"
+    "prompt": "Solve the equation for x: 5x - 15 = 45.",
+    "expected_answer": "12"
   },
   {
     "task_id": "math-6",
-    "prompt": "What is 15 * 24?",
-    "expected_answer": "360"
+    "prompt": "Multiply: 15 * 8",
+    "expected_answer": "120"
+  },
+  {
+    "task_id": "math-7",
+    "prompt": "If a train travels at 80 km/h, how many hours will it take to travel 400 km?",
+    "expected_answer": "5"
+  },
+  {
+    "task_id": "math-8",
+    "prompt": "Calculate 25% of 200.",
+    "expected_answer": "50"
+  },
+  {
+    "task_id": "math-9",
+    "prompt": "Solve for y: 2y + 8 = 20.",
+    "expected_answer": "6"
+  },
+  {
+    "task_id": "math-10",
+    "prompt": "Divide: 144 / 12",
+    "expected_answer": "12"
+  },
+  {
+    "task_id": "math-11",
+    "prompt": "What is the square root of 225?",
+    "expected_answer": "15"
+  },
+  {
+    "task_id": "math-12",
+    "prompt": "If a rectangle has length 10 cm and width 5 cm, what is its area in cm^2?",
+    "expected_answer": "50"
+  },
+  {
+    "task_id": "math-13",
+    "prompt": "What is 3^4?",
+    "expected_answer": "81"
   },
   {
     "task_id": "sent-1",
-    "prompt": "Classify the sentiment of the following text as positive, negative, or neutral and briefly justify your answer: 'The new restaurant downtown has amazing food but the service was incredibly slow and the waiters were rude.'",
-    "expected_answer": "negative"
-  },
-  {
-    "task_id": "sent-2",
-    "prompt": "Determine the sentiment of this product review: 'Absolutely love this phone! The camera quality is outstanding and the battery lasts all day. Best purchase I have made this year.'",
+    "prompt": "Classify sentiment of: 'I absolutely love this new phone! The camera is incredible and the battery lasts all day.'",
     "expected_answer": "positive"
   },
   {
+    "task_id": "sent-2",
+    "prompt": "Classify sentiment of: 'This restaurant was a complete disappointment. The service was slow and the food was cold.'",
+    "expected_answer": "negative"
+  },
+  {
     "task_id": "sent-3",
-    "prompt": "Classify the sentiment of: 'The weather today is cloudy with occasional showers, making it quite average.'",
+    "prompt": "Classify sentiment of: 'The package arrived today. It contains the books I ordered.'",
     "expected_answer": "neutral"
   },
   {
     "task_id": "sent-4",
-    "prompt": "Identify the sentiment of: 'I was extremely disappointed with the delivery time. It took three weeks to arrive and the box was completely crushed.'",
-    "expected_answer": "negative"
+    "prompt": "Classify sentiment: 'The movie was alright, nothing special but not terrible either.'",
+    "expected_answer": "neutral"
   },
   {
     "task_id": "sent-5",
-    "prompt": "What is the sentiment of: 'This software has some nice features, but it crashes constantly and has a lot of bugs.'",
+    "prompt": "Classify sentiment: 'I am so angry that my flight was cancelled without any notice!'",
     "expected_answer": "negative"
   },
   {
+    "task_id": "sent-6",
+    "prompt": "Classify sentiment: 'This is the best service I have ever received in my life!'",
+    "expected_answer": "positive"
+  },
+  {
+    "task_id": "sent-7",
+    "prompt": "Classify sentiment: 'The meeting is scheduled for tomorrow at 10 AM.'",
+    "expected_answer": "neutral"
+  },
+  {
+    "task_id": "sent-8",
+    "prompt": "Classify sentiment: 'The book was extremely boring and hard to finish.'",
+    "expected_answer": "negative"
+  },
+  {
+    "task_id": "sent-9",
+    "prompt": "Classify sentiment: 'The product is decent for its price.'",
+    "expected_answer": "positive"
+  },
+  {
+    "task_id": "sent-10",
+    "prompt": "Classify sentiment: 'I hate waiting in long queues.'",
+    "expected_answer": "negative"
+  },
+  {
+    "task_id": "sent-11",
+    "prompt": "Classify sentiment: 'The weather today is cloudy with a chance of rain.'",
+    "expected_answer": "neutral"
+  },
+  {
+    "task_id": "sent-12",
+    "prompt": "Classify sentiment: 'Excellent work, I am highly impressed.'",
+    "expected_answer": "positive"
+  },
+  {
     "task_id": "summ-1",
-    "prompt": "Summarise the following text in one sentence: 'Machine learning is a subset of artificial intelligence that enables systems to learn and improve from experience without being explicitly programmed. It focuses on developing computer programs that can access data and use it to learn for themselves. The process begins with observations or data, such as examples, direct experience, or instruction, to look for patterns in data and make better decisions in the future.'",
-    "expected_answer": "machine learning"
+    "prompt": "Summarize this: 'Artificial intelligence (AI) is intelligence demonstrated by machines, as opposed to natural intelligence displayed by animals including humans. Leading AI textbooks define the field as the study of intelligent agents: any system that perceives its environment and takes actions that maximize its chance of achieving its goals.'",
+    "expected_answer": "artificial intelligence study intelligent agents"
   },
   {
     "task_id": "summ-2",
-    "prompt": "Summarize the following passage in 2-3 sentences: 'The Great Barrier Reef, located off the coast of Queensland, Australia, is the world’s largest coral reef system. It stretches over 2,300 kilometers and is composed of over 2,900 individual reef systems. The reef supports an extraordinary diversity of life, including over 1,500 species of fish, 400 types of coral, and numerous other marine organisms. However, it faces significant threats from climate change, ocean acidification, and pollution, which have caused widespread coral bleaching events in recent years.'",
-    "expected_answer": "Great Barrier Reef"
+    "prompt": "Summarize this in one sentence: 'The Great Wall of China is a series of fortifications that were built across the historical northern borders of ancient Chinese states and Imperial China as protection against various nomadic groups from the Eurasian Steppe. Several walls were built from as early as the 7th century BC.'",
+    "expected_answer": "great wall fortifications built protect china northern borders"
   },
   {
     "task_id": "summ-3",
-    "prompt": "Summarize the following text in a short paragraph: 'Quantum computing is a rapidly-emerging technology that harnesses the laws of quantum mechanics to solve problems too complex for classical computers. Classical computers use bits (0s and 1s) as their basic unit of information, whereas quantum computers use qubits. Qubits can exist in a state of superposition, meaning they can represent a 0, a 1, or both simultaneously. This allows quantum computers to process massive amounts of information at speed.'",
-    "expected_answer": "quantum computing qubits superposition"
+    "prompt": "Summarize this paragraph: 'Quantum computing is a rapidly-emerging technology that harnesses the laws of quantum mechanics to solve problems too complex for classical computers. These machines are very different from the classical computers that have been around for more than half a century.'",
+    "expected_answer": "quantum computing uses quantum mechanics solve complex problems"
   },
   {
     "task_id": "summ-4",
-    "prompt": "Condense this text into one bullet point: 'The company announced a record-breaking quarter, with revenue up 45% year-over-year. Key growth drivers included the expansion of cloud services and robust international sales, despite ongoing supply chain constraints.'",
-    "expected_answer": "revenue"
+    "prompt": "Summarize: 'The human brain is the central organ of the human nervous system, and with the spinal cord makes up the central nervous system. The brain consists of the cerebrum, the brainstem and the cerebellum. It controls most of the activities of the body, processing, integrating, and coordinating the information it receives.'",
+    "expected_answer": "brain central organ nervous system controls body activities"
   },
   {
     "task_id": "summ-5",
-    "prompt": "Provide a brief summary of: 'Renewable energy sources, such as solar, wind, and hydroelectric power, are becoming increasingly vital as global carbon emissions continue to rise. Transitioning away from fossil fuels is necessary to mitigate the impacts of climate change and secure a clean, sustainable energy future for subsequent generations.'",
-    "expected_answer": "renewable energy solar wind"
+    "prompt": "Summarize: 'The Renaissance was a fervent period of European cultural, artistic, political and scientific rebirth following the Middle Ages. Promoted by a rediscovery of classical philosophy, literature, and art, it produced some of the greatest minds and artworks in history.'",
+    "expected_answer": "renaissance period european cultural artistic scientific rebirth"
+  },
+  {
+    "task_id": "summ-6",
+    "prompt": "Summarize: 'Photosynthesis is a process used by plants and other organisms to convert light energy into chemical energy that, through cellular respiration, can later be released to fuel the organisms activities.'",
+    "expected_answer": "photosynthesis process plants convert light energy chemical"
+  },
+  {
+    "task_id": "summ-7",
+    "prompt": "Summarize: 'A volcanic eruption occurs when hot materials from the Earths interior are thrown out of a volcano. Lava, rocks, dust, and gas compounds are some of these materials. Eruptions can come from side branches or from the top of the volcano.'",
+    "expected_answer": "volcanic eruption occurs hot materials earth interior thrown out"
+  },
+  {
+    "task_id": "summ-8",
+    "prompt": "Summarize: 'Global warming refers to the long-term heating of Earths climate system observed since the pre-industrial period due to human activities, primarily fossil fuel burning, which increases heat-trapping greenhouse gas levels.'",
+    "expected_answer": "global warming long term heating earth climate human activities"
+  },
+  {
+    "task_id": "summ-9",
+    "prompt": "Summarize: 'The internet is a global system of interconnected computer networks that uses the Internet protocol suite to communicate between networks and devices. It is a network of networks that consists of private, public, academic, business, and government networks.'",
+    "expected_answer": "internet global system interconnected computer networks communicate"
+  },
+  {
+    "task_id": "summ-10",
+    "prompt": "Summarize: 'DNA is a molecule that contains the genetic code that is unique to every individual. It is like an instruction manual for the body, containing the genetic instructions used in the development, functioning, growth, and reproduction of all known organisms.'",
+    "expected_answer": "dna molecule contains genetic instructions organisms"
+  },
+  {
+    "task_id": "summ-11",
+    "prompt": "Summarize: 'The Industrial Revolution was the transition to new manufacturing processes in Great Britain, continental Europe, and the United States, in the period from about 1760 to sometime between 1820 and 1840.'",
+    "expected_answer": "industrial revolution transition new manufacturing processes"
+  },
+  {
+    "task_id": "summ-12",
+    "prompt": "Summarize: 'The solar system is the gravitationally bound system of the Sun and the objects that orbit it. It formed 4.6 billion years ago from the gravitational collapse of a giant interstellar molecular cloud.'",
+    "expected_answer": "solar system Sun orbit gravitational collapse molecular cloud"
   },
   {
     "task_id": "ner-1",
-    "prompt": "Extract all named entities from the following text and label each as Person, Organization, Location, or Date: 'On March 15, 2024, Elon Musk announced that SpaceX would be launching a new satellite from Cape Canaveral in partnership with NASA.'",
-    "expected_answer": "Cape Canaveral SpaceX Elon Musk NASA March"
+    "prompt": "Extract all entities (Locations, Organizations, Persons, Dates) from: 'SpaceX launched its Falcon 9 rocket from Cape Canaveral on March 14, carrying a new batch of Starlink satellites. CEO Elon Musk congratulated the team, noting that this was the 100th successful launch for the company, which continues to work closely with NASA on future lunar missions.'",
+    "expected_answer": "SpaceX Cape Canaveral March 14 Elon Musk NASA"
   },
   {
     "task_id": "ner-2",
-    "prompt": "Identify all named entities (people, organizations, locations, dates) in this text: 'Microsoft CEO Satya Nadella met with European Union officials in Brussels on January 10th to discuss artificial intelligence regulations.'",
+    "prompt": "Extract all entities (Locations, Organizations, Persons, Dates) from: 'Microsoft CEO Satya Nadella announced new AI initiatives in Brussels last January, highlighting collaborations with European research institutions.'",
     "expected_answer": "Microsoft Satya Nadella Brussels January"
   },
   {
     "task_id": "ner-3",
-    "prompt": "Extract all entities (Locations, Organizations, Dates) from: 'Google was founded in September 1998 by Larry Page and Sergey Brin while they were Ph.D. students at Stanford University in California.'",
-    "expected_answer": "Google Larry Page Sergey Brin"
+    "prompt": "Extract entities (Location, Organization, Person, Date) from: 'Google was founded by Larry Page and Sergey Brin while they were Ph.D. students at Stanford University in California in September 1998.'",
+    "expected_answer": "Google Larry Page Sergey Brin Stanford University California September 1998"
   },
   {
     "task_id": "ner-4",
-    "prompt": "List all the locations and persons in the text: 'Albert Einstein visited Princeton, New Jersey in 1933 to join the Institute for Advanced Study.'",
-    "expected_answer": "Albert Einstein Princeton"
+    "prompt": "Extract entities from: 'Albert Einstein was born in Ulm, Germany in March 1879, and later moved to Princeton, New Jersey where he worked at the Institute for Advanced Study.'",
+    "expected_answer": "Albert Einstein Ulm Germany March 1879 Princeton New Jersey Institute for Advanced Study"
   },
   {
     "task_id": "ner-5",
-    "prompt": "Identify the organizations and dates mentioned here: 'The United Nations was established on October 24, 1945, following the end of World War II, to prevent future global conflicts.'",
-    "expected_answer": "United Nations October 1945"
+    "prompt": "Extract entities: 'The United Nations was established on October 24, 1945, in San Francisco, California, following the signing of the UN Charter.'",
+    "expected_answer": "United Nations October 24 1945 San Francisco California"
+  },
+  {
+    "task_id": "ner-6",
+    "prompt": "Extract entities: 'Apple Inc. was founded by Steve Jobs and Steve Wozniak in Cupertino on April 1, 1976.'",
+    "expected_answer": "Apple Inc. Steve Jobs Steve Wozniak Cupertino April 1 1976"
+  },
+  {
+    "task_id": "ner-7",
+    "prompt": "Extract entities: 'Barack Obama visited London in April 2016 to meet with David Cameron at Downing Street.'",
+    "expected_answer": "Barack Obama London April 2016 David Cameron Downing Street"
+  },
+  {
+    "task_id": "ner-8",
+    "prompt": "Extract entities: 'Amazon was started by Jeff Bezos in Seattle, Washington, on July 5, 1994.'",
+    "expected_answer": "Amazon Jeff Bezos Seattle Washington July 5 1994"
+  },
+  {
+    "task_id": "ner-9",
+    "prompt": "Extract entities: 'Marie Curie discovered Radium in Paris, France, in December 1898.'",
+    "expected_answer": "Marie Curie Radium Paris France December 1898"
+  },
+  {
+    "task_id": "ner-10",
+    "prompt": "Extract entities: 'Tesla, Inc. purchased land in Berlin, Germany, in January 2020 for its new gigafactory.'",
+    "expected_answer": "Tesla, Inc. Berlin Germany January 2020"
+  },
+  {
+    "task_id": "ner-11",
+    "prompt": "Extract entities: 'Richard Feynman worked on the Manhattan Project in Los Alamos during World War II.'",
+    "expected_answer": "Richard Feynman Manhattan Project Los Alamos World War II"
+  },
+  {
+    "task_id": "ner-12",
+    "prompt": "Extract entities: 'Nelson Mandela was inaugurated as President of South Africa in Pretoria on May 10, 1994.'",
+    "expected_answer": "Nelson Mandela South Africa Pretoria May 10 1994"
   },
   {
     "task_id": "debug-1",
-    "prompt": "Find and fix the bug in this Python code:\n\ndef find_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    return total / len(numbers)\n\nresult = find_average([])\nprint(result)",
-    "expected_answer": "ZeroDivisionError len empty"
+    "prompt": "Fix the bug in this Python code:\ndef get_even(numbers):\n    even_nums = []\n    for n in numbers:\n        if n % 2 == 0:\n        even_nums.append(n)\n    return even_nums",
+    "expected_answer": "indentation even_nums.append"
   },
   {
     "task_id": "debug-2",
-    "prompt": "What is wrong with this code and how would you fix it?\n\ndef binary_search(arr, target):\n    low = 0\n    high = len(arr)\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1",
-    "expected_answer": "low <= high low < high high len"
+    "prompt": "Fix the bug in this Python code:\ndef calc_average(lst):\n    return sum(lst) / len(lst)\n# Crash when lst is empty",
+    "expected_answer": "if not lst return 0"
   },
   {
     "task_id": "debug-3",
-    "prompt": "Fix the bug in this function which is supposed to reverse a string:\n\ndef reverse_string(s):\n    rev = ''\n    for i in range(len(s)):\n        rev += s[len(s) - i]\n    return rev",
-    "expected_answer": "len - 1 - i index range"
+    "prompt": "Fix the bug in this code:\ndef append_to(element, to=[]):\n    to.append(element)\n    return to",
+    "expected_answer": "default argument None to = []"
   },
   {
     "task_id": "debug-4",
-    "prompt": "Find the error in this recursive factorial function:\n\ndef factorial(n):\n    if n == 1:\n        return 1\n    return n * factorial(n - 1)",
-    "expected_answer": "recursion base case n <= 1"
+    "prompt": "Fix the bug in this code:\ndef read_file(path):\n    f = open(path, 'r')\n    data = f.read()\n    return data\n# File not closed",
+    "expected_answer": "with open path r as f"
   },
   {
     "task_id": "debug-5",
-    "prompt": "This code is supposed to check if a number is prime, but it has a logic bug. Find it:\n\ndef is_prime(n):\n    if n <= 1:\n        return False\n    for i in range(2, n):\n        if n % i == 0:\n            return False\n        else:\n            return True",
-    "expected_answer": "is_prime divisor returns early"
+    "prompt": "Fix the bug in this Python code:\nfor i in range(10):\n    if i = 5:\n        print('Found')",
+    "expected_answer": "comparison operator == i == 5"
+  },
+  {
+    "task_id": "debug-6",
+    "prompt": "Fix the bug in this code:\nclass Dog:\n    def __init__(name):\n        self.name = name",
+    "expected_answer": "self parameter __init__(self, name)"
+  },
+  {
+    "task_id": "debug-7",
+    "prompt": "Fix the bug in this code:\nx = 10\ndef update():\n    x = x + 1\nupdate()",
+    "expected_answer": "local variable referenced before assignment global x or local variable shadow"
+  },
+  {
+    "task_id": "debug-8",
+    "prompt": "Fix the bug in this code:\nmy_dict = {'a': 1}\nprint(my_dict['b'])",
+    "expected_answer": "KeyError dict.get('b') or check key exists"
+  },
+  {
+    "task_id": "debug-9",
+    "prompt": "Fix the bug in this code:\nimport json\njson_str = \"{'a': 1}\"\njson.loads(json_str)",
+    "expected_answer": "invalid JSON double quotes json_str = '{\"a\": 1}'"
+  },
+  {
+    "task_id": "debug-10",
+    "prompt": "Fix the bug in this code:\nvalues = [1, 2, 3]\nfor i in range(4):\n    print(values[i])",
+    "expected_answer": "IndexError range(len(values))"
+  },
+  {
+    "task_id": "debug-11",
+    "prompt": "Fix the bug in this code:\nresult = 'value' + 5",
+    "expected_answer": "TypeError convert int to str str(5)"
+  },
+  {
+    "task_id": "debug-12",
+    "prompt": "Fix the bug in this code:\ndef run():\n    print('Running')\nrun(10)",
+    "expected_answer": "TypeError function takes 0 positional arguments but 1 was given"
+  },
+  {
+    "task_id": "debug-13",
+    "prompt": "Fix the bug in this code:\nnums = [1, 2, 3]\nnums.remove(4)",
+    "expected_answer": "ValueError check if 4 in nums before removing"
   },
   {
     "task_id": "logic-1",
-    "prompt": "Three friends - Alice, Bob, and Charlie - each have a different pet: a cat, a dog, and a fish. Alice does not have the dog. Charlie does not have the cat or the dog. Who has which pet?",
-    "expected_answer": "Charlie pet is fish Alice pet is cat Bob pet is dog"
-  },
-  {
-    "task_id": "logic-2",
-    "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly? Explain your reasoning using deductive logic.",
-    "expected_answer": "cannot conclude"
-  },
-  {
-    "task_id": "logic-3",
     "prompt": "A is taller than B. B is taller than C. D is taller than A. Who is the shortest person?",
     "expected_answer": "C"
   },
   {
-    "task_id": "logic-4",
+    "task_id": "logic-2",
     "prompt": "If all widgets are gadgets, and all gadgets are gizmos, are all widgets gizmos? Provide the logical proof.",
     "expected_answer": "widgets are gizmos"
   },
   {
-    "task_id": "logic-5",
+    "task_id": "logic-3",
+    "prompt": "Six people (A, B, C, D, E, F) sit in a row. A is next to B. C is next to D. E is not next to F. If A sits on the far left, who sits on the far right? Explain.",
+    "expected_answer": "cannot conclude"
+  },
+  {
+    "task_id": "logic-4",
     "prompt": "A room contains 5 people. If every person shakes hands with every other person exactly once, how many handshakes take place in total?",
     "expected_answer": "10"
+  },
+  {
+    "task_id": "logic-5",
+    "prompt": "All cats are mammals. All mammals have warm blood. Do all cats have warm blood?",
+    "expected_answer": "cats have warm blood"
+  },
+  {
+    "task_id": "logic-6",
+    "prompt": "If John is older than Sarah, and Sarah is older than Mike, who is the youngest?",
+    "expected_answer": "Mike"
+  },
+  {
+    "task_id": "logic-7",
+    "prompt": "A is the brother of B. B is the brother of C. C is the father of D. How is A related to D?",
+    "expected_answer": "uncle"
+  },
+  {
+    "task_id": "logic-8",
+    "prompt": "Five runners (A, B, C, D, E) completed a race. B finished before C but after A. D finished before A. E finished after C. Who finished first?",
+    "expected_answer": "D"
+  },
+  {
+    "task_id": "logic-9",
+    "prompt": "A container has 3 blue balls and 2 red balls. If you draw one ball at random, what is the probability it is red?",
+    "expected_answer": "2/5"
+  },
+  {
+    "task_id": "logic-10",
+    "prompt": "A clock shows 3:15. What is the angle between the hour and minute hands?",
+    "expected_answer": "7.5"
+  },
+  {
+    "task_id": "logic-11",
+    "prompt": "If a card is drawn from a standard 52-card deck, what is the probability it is an ace?",
+    "expected_answer": "1/13"
+  },
+  {
+    "task_id": "logic-12",
+    "prompt": "There are 3 boxes: one has gold, one has silver, one is empty. The label on Box 1 says 'Gold is here'. Box 2 says 'Silver is not here'. Box 3 says 'Empty'. If only one label is true, which box has gold?",
+    "expected_answer": "Box 2"
+  },
+  {
+    "task_id": "logic-13",
+    "prompt": "If you have a 3-gallon jug and a 5-gallon jug, how do you measure exactly 4 gallons of water?",
+    "expected_answer": "fill 5 gallon pour 3 fill 5 gallon pour rest"
   },
   {
     "task_id": "code-1",
@@ -186,22 +446,57 @@
   },
   {
     "task_id": "code-2",
-    "prompt": "Write a Python function called 'flatten_list' that takes a nested list of arbitrary depth and returns a flat list containing all elements. For example, flatten_list([1, [2, [3, 4], 5], 6]) should return [1, 2, 3, 4, 5, 6].",
-    "expected_answer": "flatten"
+    "prompt": "Write a Python function called 'fibonacci' that returns the n-th Fibonacci number using an iterative approach.",
+    "expected_answer": "fibonacci"
   },
   {
     "task_id": "code-3",
-    "prompt": "Implement a Python function called 'most_frequent' that takes a list of elements and returns the element that appears most frequently. If there is a tie, return any of the most frequent elements.",
-    "expected_answer": "most_frequent"
+    "prompt": "Write a Python function 'get_primes' that returns a list of all prime numbers up to n.",
+    "expected_answer": "primes"
   },
   {
     "task_id": "code-4",
-    "prompt": "Write a Python class named 'BankAccount' with methods 'deposit', 'withdraw', and 'get_balance'. Ensure that withdrawals cannot exceed the current balance.",
-    "expected_answer": "BankAccount"
+    "prompt": "Write a Python class 'Stack' with push, pop, and peek methods.",
+    "expected_answer": "class Stack"
   },
   {
     "task_id": "code-5",
-    "prompt": "Write a Python function 'fizzbuzz' that prints numbers from 1 to n, but prints 'Fizz' for multiples of 3, 'Buzz' for multiples of 5, and 'FizzBuzz' for multiples of both.",
-    "expected_answer": "FizzBuzz"
+    "prompt": "Write a Python function 'binary_search' that performs a binary search on a sorted list.",
+    "expected_answer": "binary search"
+  },
+  {
+    "task_id": "code-6",
+    "prompt": "Write a Python function 'factorial' that calculates the factorial of a number iteratively.",
+    "expected_answer": "factorial"
+  },
+  {
+    "task_id": "code-7",
+    "prompt": "Write a Python function 'merge_dicts' that merges two dictionaries.",
+    "expected_answer": "merge"
+  },
+  {
+    "task_id": "code-8",
+    "prompt": "Write a Python function 'reverse_string' that returns the reverse of a string.",
+    "expected_answer": "reverse"
+  },
+  {
+    "task_id": "code-9",
+    "prompt": "Write a Python function 'count_words' that counts occurrences of each word in a text string.",
+    "expected_answer": "count words"
+  },
+  {
+    "task_id": "code-10",
+    "prompt": "Write a Python function 'is_anagram' that checks if two strings are anagrams of each other.",
+    "expected_answer": "anagram"
+  },
+  {
+    "task_id": "code-11",
+    "prompt": "Write a Python function 'find_max' that finds the maximum value in a list without using max().",
+    "expected_answer": "find max"
+  },
+  {
+    "task_id": "code-12",
+    "prompt": "Write a Python function 'remove_duplicates' that removes duplicates from a list while preserving order.",
+    "expected_answer": "remove duplicates"
   }
 ]
