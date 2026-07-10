@@ -80,6 +80,16 @@ def detect_category(prompt: str) -> str:
                                "what causes", "what are", "concept of"]):
         return "explanation"
 
+    # Fact — factual lookup style questions
+    if any(kw in p for kw in ["who is", "who was", "where is", "where was", "when did",
+                               "when was", "what year", "what country", "what city",
+                               "how many people", "population of", "capital of",
+                               "founder of", "ceo of", "author of", "invented by",
+                               "located in", "who wrote", "who directed", "who painted",
+                               "chemical symbol", "largest ocean", "tallest mountain",
+                               "active volcano"]):
+        return "fact"
+
     return "general"
 
 
