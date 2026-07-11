@@ -93,6 +93,23 @@ class RouterConfig:
             os.getenv("ROUTER_CONFIDENCE_FALLBACK_THRESHOLD", "0.2")
         )
     )
+    # Consensus confidence threshold for Metis gating (2-of-3 agreement = 0.66)
+    consensus_confidence_threshold: float = field(
+        default_factory=lambda: float(
+            os.getenv("ROUTER_CONSENSUS_CONFIDENCE_THRESHOLD", "0.66")
+        )
+    )
+    # Allow math tasks to run locally if program-aided verification succeeds
+    allow_local_math_with_verification: bool = field(
+        default_factory=lambda: os.getenv("ALLOW_LOCAL_MATH_WITH_VERIFICATION", "false").lower()
+        in ("true", "1", "yes")
+    )
+    # Total runtime budget in seconds for the entire container execution
+    total_runtime_budget: float = field(
+        default_factory=lambda: float(
+            os.getenv("TOTAL_RUNTIME_BUDGET", "570.0")
+        )
+    )
 
 
 @dataclass(frozen=True)

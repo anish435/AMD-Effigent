@@ -72,6 +72,13 @@ def main() -> int:
     setup_logging()
     logger = logging.getLogger("run")
 
+    run_start_time = time.time()
+    try:
+        from agent.governor import set_start_time
+        set_start_time(run_start_time)
+    except Exception as exc:
+        logger.warning("Could not set governor start time: %s", exc)
+
     start_time = time.monotonic()
 
     # ── Step 0: Proactively start and verify local Ollama server ──

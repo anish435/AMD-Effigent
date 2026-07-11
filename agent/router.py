@@ -236,7 +236,9 @@ class HeuristicRouter:
             reasoning = f"Ollama unreachable. Falling back to 100% remote routing. Heuristic score: {score:.3f}"
         else:
             # Check for categories that struggle under local 1.5B model
-            if category in ["math", "logic", "ner", "code", "fact", "explanation"]:
+            if category in ["math", "logic", "ner", "code", "fact", "explanation"] and not (
+                category == "math" and self._config.allow_local_math_with_verification
+            ):
                 route_decision = Route.REMOTE
                 difficulty = TaskDifficulty.SIMPLE
                 reasoning = f"Forcing category '{category}' to remote simple model to ensure high accuracy. Heuristic score: {score:.3f}"

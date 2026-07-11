@@ -165,6 +165,65 @@ class RemoteExecutor:
 
 
 # ---------------------------------------------------------------------------
+# Program-aided math verification helpers
+# ---------------------------------------------------------------------------
+
+def safe_eval(expr: str) -> Optional[float]:
+    """Safely evaluates a basic arithmetic expression."""
+    # Sanitize: allow only numbers, basic arithmetic operators, brackets, and spaces
+    if not re.match(r"^[0-9\.\+\-\*\/\(\)\s]+$", expr):
+        return None
+    try:
+        val = eval(expr, {"__builtins__": None}, {})
+        return float(val)
+    except Exception:
+        return None
+
+def extract_final_number(text: str) -> Optional[float]:
+    """Extracts the final numeric value stated in the model output."""
+    matches = re.findall(r"-?\d+(?:\.\d+)?", text)
+    if not matches:
+        return None
+    try:
+        return float(matches[-1])
+    except Exception:
+        return None
+
+def verify_math_answer(prompt: str, answer: str) -> Optional[bool]:
+    """
+    Attempts to programmatically verify an arithmetic task's answer.
+    Returns:
+      True if verification succeeds (answers match).
+      False if verification fails (answers mismatch).
+      None if the expression or answer cannot be parsed/verified.
+    """
+    try:
+        # Extract expression matching numbers and operators
+        expr_match = re.search(r"\d+(?:\.\d+)?(?:\s*[\+\-\*\/\(\)]+\s*\d+(?:\.\d+)?)+", prompt)
+        if not expr_match:
+            return None
+        
+        expr = expr_match.group(0)
+        computed = safe_eval(expr)
+        if computed is None:
+            return None
+            
+        model_num = extract_final_number(answer)
+        if model_num is None:
+            return None
+            
+        match = abs(computed - model_num) < 1e-4
+        if not match:
+            logger.info("Math verification mismatch: computed %.4f vs model %.4f", computed, model_num)
+        else:
+            logger.info("Math verification match: computed %.4f vs model %.4f", computed, model_num)
+        return match
+    except Exception as exc:
+        logger.warning("Error in math verification: %s", exc)
+        return None
+
+
+# ---------------------------------------------------------------------------
 # Local executor (Ollama connector)
 # ---------------------------------------------------------------------------
 
@@ -235,6 +294,120 @@ class LocalExecutor:
             logger.error("Local Ollama execution failed: %s", exc)
             # Raise exception to trigger the coordinator remote fallback
             raise RuntimeError(f"Local Ollama unreachable or failed: {exc}") from exc
+
+    def execute_with_consensus(
+        self,
+        task: Task,
+        num_samples: int = 3,
+        max_new_tokens_override: Optional[int] = None,
+    ) -> ExecutionResult:
+        """
+        Run the task through the local Ollama model multiple times with elevated temperature
+        to measure consensus agreement across samples.
+        """
+        # If dynamic governor returns 1, fall back directly to original single-shot execution
+        if num_samples <= 1:
+            logger.info("Adaptive Governor set sample count <= 1. Running single-shot local execution.")
+            return self.execute(task, max_new_tokens_override)
+            
+        start = time.perf_counter()
+        ollama_host = os.getenv("OLLAMA_HOST", "http://localhost:11434").rstrip("/")
+        url = f"{ollama_host}/api/generate"
+        max_new_tokens = max_new_tokens_override or self._config.max_new_tokens
+        
+        # Elevated temperature for diversity in sampling
+        payload = {
+            "model": self._model_name,
+            "prompt": task.prompt,
+            "stream": False,
+            "options": {
+                "temperature": 0.7,
+                "num_predict": max_new_tokens
+            }
+        }
+        
+        samples: list[str] = []
+        total_prompt_tokens = 0
+        total_completion_tokens = 0
+        
+        for idx in range(num_samples):
+            try:
+                response = requests.post(url, json=payload, timeout=15)
+                response.raise_for_status()
+                data = response.json()
+                output_text = data.get("response", "").strip()
+                samples.append(output_text)
+                
+                # Approximate token counting
+                prompt_words = len(task.prompt.split())
+                completion_words = len(output_text.split())
+                total_prompt_tokens += int(prompt_words / 0.75)
+                total_completion_tokens += int(completion_words / 0.75)
+            except Exception as exc:
+                logger.warning("Local consensus sample %d of %d failed: %s", idx + 1, num_samples, exc)
+                if len(samples) == 0:
+                    raise exc
+                    
+        if not samples:
+            raise RuntimeError("All local consensus samples failed")
+            
+        def normalize(t: str) -> str:
+            # strip non-alphanumeric and lowercase
+            return re.sub(r"[^a-z0-9]", "", t.lower())
+            
+        def is_similar(a: str, b: str) -> bool:
+            a_norm, b_norm = normalize(a), normalize(b)
+            if not a_norm or not b_norm:
+                return a_norm == b_norm
+            # If short (e.g. less than 15 chars), require exact normalized match
+            if len(a_norm) < 15 or len(b_norm) < 15:
+                return a_norm == b_norm
+            # Otherwise use Jaccard word-overlap similarity (0.60 threshold)
+            a_words = set(re.findall(r"\w+", a.lower()))
+            b_words = set(re.findall(r"\w+", b.lower()))
+            union = a_words.union(b_words)
+            if not union:
+                return False
+            overlap = len(a_words.intersection(b_words)) / len(union)
+            return overlap >= 0.60
+            
+        # Group similar samples into clusters
+        clusters: list[list[str]] = []
+        for sample in samples:
+            added = False
+            for cluster in clusters:
+                if is_similar(sample, cluster[0]):
+                    cluster.append(sample)
+                    added = True
+                    break
+            if not added:
+                clusters.append([sample])
+                
+        # Find majority/plurality cluster
+        clusters.sort(key=len, reverse=True)
+        majority_cluster = clusters[0]
+        majority_answer = majority_cluster[0]
+        
+        consensus_confidence = len(majority_cluster) / num_samples
+        elapsed_ms = (time.perf_counter() - start) * 1000
+        
+        logger.info(
+            "Task %s consensus: samples=%d majority_size=%d confidence=%.2f elapsed=%.0fms",
+            task.id, num_samples, len(majority_cluster), consensus_confidence, elapsed_ms
+        )
+        
+        return ExecutionResult(
+            output=majority_answer,
+            route_used=Route.LOCAL,
+            token_usage=TokenUsage(
+                prompt_tokens=int(total_prompt_tokens / num_samples),
+                completion_tokens=int(total_completion_tokens / num_samples),
+                total_tokens=int((total_prompt_tokens + total_completion_tokens) / num_samples),
+            ),
+            confidence=consensus_confidence,
+            latency_ms=elapsed_ms,
+            fallback_triggered=False,
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -388,7 +561,7 @@ class HybridExecutor:
         self._remote = RemoteExecutor(config)
         self._cache = ResponseCache(enabled=config.cache_enabled)
         self._verifier = OutputVerifier()
-        self._fallback_threshold = config.router.confidence_fallback_threshold
+        self._fallback_threshold = config.router.consensus_confidence_threshold
         self._compression_enabled = config.compression_enabled
         self._tracker = tracker
 
@@ -475,13 +648,28 @@ class HybridExecutor:
 
         # ── Step 4: Local model execution with cascading verification ──
         try:
-            local_result = self._local.execute(
-                task,
-                max_new_tokens_override=token_budget,
-            )
+            try:
+                from agent.governor import get_current_sample_count
+                num_samples = get_current_sample_count(self._config.router.total_runtime_budget)
+            except Exception as gov_exc:
+                logger.warning("Governor error: %s. Defaulting to 1 sample.", gov_exc)
+                num_samples = 1
+
+            try:
+                local_result = self._local.execute_with_consensus(
+                    task,
+                    num_samples=num_samples,
+                    max_new_tokens_override=token_budget,
+                )
+            except Exception as consensus_exc:
+                logger.warning("Consensus sampling failed: %s. Falling back to single-shot execution.", consensus_exc)
+                local_result = self._local.execute(
+                    task,
+                    max_new_tokens_override=token_budget,
+                )
         except Exception as exc:
             logger.warning(
-                "Task %s: local model unavailable (%s) — routing to remote",
+                "Task %s: local model execution failed entirely (%s) — routing to remote",
                 task.id, exc,
             )
             result = self._remote.execute(
@@ -512,7 +700,22 @@ class HybridExecutor:
         confidence_ok = local_result.confidence >= self._fallback_threshold
         verification_ok = self._verifier.verify(task, local_result)
 
-        if confidence_ok and verification_ok:
+        # Math programmatic verification check (Part B & C)
+        math_verification_ok = True
+        if category in ("math", "simple_math"):
+            try:
+                math_verified = verify_math_answer(task.prompt, local_result.output)
+                if math_verified is False:
+                    logger.info("Task %s: Program-aided math verification failed. Rejecting local answer.", task.id)
+                    math_verification_ok = False
+                elif math_verified is True:
+                    logger.info("Task %s: Program-aided math verification succeeded. Boosting confidence.", task.id)
+                    local_result.confidence = 1.0
+                    confidence_ok = True
+            except Exception as math_exc:
+                logger.warning("Task %s: Program-aided math verification threw exception: %s. Treating as unverifiable.", task.id, math_exc)
+
+        if confidence_ok and verification_ok and math_verification_ok:
             from agent.formatter import strip_filler
             local_result.output = strip_filler(local_result.output)
             self._cache.put(task.prompt, local_result)
@@ -521,7 +724,7 @@ class HybridExecutor:
                 self._tracker.log_free_resolution(
                     task_id=task.id,
                     resolution_type="local model",
-                    reason="Answered by local model and verified successfully",
+                    reason=f"Answered by local model and verified successfully (confidence={local_result.confidence:.2f})",
                     category=category,
                     difficulty=difficulty,
                     baseline_tokens=baseline_tokens
@@ -534,6 +737,8 @@ class HybridExecutor:
             reason.append(f"confidence {local_result.confidence:.2f} < {self._fallback_threshold:.2f}")
         if not verification_ok:
             reason.append("output quality verification failed")
+        if not math_verification_ok:
+            reason.append("program-aided math verification failed")
         reason_str = " and ".join(reason)
         logger.info("Task %s: local answer rejected (%s) — escalating to remote", task.id, reason_str)
 
