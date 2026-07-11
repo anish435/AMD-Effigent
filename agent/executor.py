@@ -26,7 +26,7 @@ from openai import OpenAI
 from agent.budget import resolve_budget
 from agent.cache import ResponseCache
 from agent.compressor import compress_prompt
-from agent.config import AppConfig, get_model_for_difficulty
+from agent.config import AppConfig, get_model_for_difficulty, get_sorted_allowed_models
 from agent.models import (
     ExecutionResult,
     Route,
@@ -76,6 +76,7 @@ class RemoteExecutor:
         max_tokens_override: Optional[int] = None,
         compress: bool = True,
         difficulty: str = "moderate",
+        category: Optional[str] = None,
     ) -> ExecutionResult:
         """Send the task to the remote model with retry and timeout logic."""
         prompt = task.prompt
@@ -88,7 +89,8 @@ class RemoteExecutor:
 
         # Category-aware system prompt for better accuracy
         from agent.budget import detect_category
-        category = detect_category(task.prompt)
+        if category is None:
+            category = detect_category(task.prompt)
         system_prompt = _CATEGORY_PROMPTS.get(category, "Answer accurately and concisely.")
         # Enforce caveman style directly in the system prompt to keep completions token-efficient
         system_prompt = (
@@ -96,7 +98,13 @@ class RemoteExecutor:
             " Answer directly. No preamble, no conversational filler, no restating the question. Just the direct answer."
         )
 
-        model = get_model_for_difficulty(self._app_config, difficulty)
+        model = get_model_for_difficulty(self._app_config, difficulty, category)
+
+        # Safety net: largest model (usually reasoning gpt-oss-120b) needs plenty of tokens
+        # to generate reasoning. If we restrict it, it will truncate early and fail accuracy.
+        allowed = get_sorted_allowed_models(self._app_config)
+        if allowed and model == allowed[-1]:
+            max_tokens = max(max_tokens, 1024)
 
         logger.info(
             "Remote execution for task %s via %s (max_tokens=%d, category=%s)",
@@ -626,7 +634,8 @@ class HybridExecutor:
                 task,
                 max_tokens_override=token_budget,
                 compress=self._compression_enabled,
-                difficulty=difficulty
+                difficulty=difficulty,
+                category=category,
             )
             from agent.formatter import strip_filler
             result.output = strip_filler(result.output)
@@ -676,7 +685,8 @@ class HybridExecutor:
                 task,
                 max_tokens_override=token_budget,
                 compress=self._compression_enabled,
-                difficulty=difficulty
+                difficulty=difficulty,
+                category=category,
             )
             from agent.formatter import strip_filler
             result.output = strip_filler(result.output)
@@ -746,7 +756,8 @@ class HybridExecutor:
             task,
             max_tokens_override=token_budget,
             compress=self._compression_enabled,
-            difficulty=difficulty
+            difficulty=difficulty,
+            category=category,
         )
         result.fallback_triggered = True
         from agent.formatter import strip_filler

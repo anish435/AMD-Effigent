@@ -169,7 +169,31 @@ def main() -> int:
         try:
             decision = router.route(task)
             result = executor.execute(task, decision)
-            answer = result.output
+            answer = result.output.strip()
+
+            # Strict answer validation safety net
+            # Reject if the answer is empty, less than 2 characters, or contains error indicators,
+            # and local execution was used. In that case, force-escalate to remote!
+            is_bad_answer = (
+                not answer
+                or len(answer) < 2
+                or answer.startswith("[ERROR]")
+                or "error" in answer.lower()
+                or "failed" in answer.lower()
+            )
+            
+            if is_bad_answer and result.route_used.value == "local":
+                logger.warning("Task %s: Local answer validation failed ('%s'). Retrying via remote.", task.id, answer)
+                from agent.models import RoutingDecision, Route
+                remote_decision = RoutingDecision(
+                    route=Route.REMOTE,
+                    difficulty=decision.difficulty,
+                    complexity_score=decision.complexity_score,
+                    reason="Forced remote fallback: local answer validation failed",
+                    signals=decision.signals
+                )
+                result = executor.execute(task, remote_decision)
+                answer = result.output.strip()
 
             task_duration = time.monotonic() - task_start
             logger.info(

@@ -184,8 +184,8 @@ def get_sorted_allowed_models(config: AppConfig) -> list[str]:
     return sorted(config.fireworks.allowed_models, key=model_priority)
 
 
-def get_model_for_difficulty(config: AppConfig, difficulty: str) -> str:
-    """Select the best model from ALLOWED_MODELS based on task difficulty."""
+def get_model_for_difficulty(config: AppConfig, difficulty: str, category: Optional[str] = None) -> str:
+    """Select the best model from ALLOWED_MODELS based on task difficulty and category."""
     logger = logging.getLogger(__name__)
     allowed = get_sorted_allowed_models(config)
     
@@ -193,7 +193,20 @@ def get_model_for_difficulty(config: AppConfig, difficulty: str) -> str:
         logger.debug("ALLOWED_MODELS not set — using default Fireworks model: %s", config.fireworks.model)
         return config.fireworks.model
 
-    # difficulty is simple/moderate/complex (mapped to easy/medium/hard)
+    # If category is provided, route based on category complexity
+    if category is not None:
+        cat_lower = str(category).lower()
+        if cat_lower in ("fact", "sentiment"):
+            # Reserve smallest-model selection for basic factual lookups and simple sentiment
+            selected = allowed[0]
+            logger.info("Category '%s' is simple. Selected smallest model: %s", category, selected)
+        else:
+            # Select the LARGEST/most capable model for all non-trivial tasks
+            selected = allowed[-1]
+            logger.info("Category '%s' is non-trivial. Selected largest model: %s", category, selected)
+        return selected
+
+    # Fallback to difficulty if category is not provided
     diff_str = str(difficulty).lower()
     
     if diff_str in ("simple", "easy"):
